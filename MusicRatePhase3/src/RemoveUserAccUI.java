@@ -31,10 +31,18 @@ public class RemoveUserAccUI {
 		frame.getContentPane().add(lblAreYouSure);
 		
 		JButton btnYes = new JButton("Yes");
+		btnYes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnYes.setBounds(30, 83, 117, 29);
 		frame.getContentPane().add(btnYes);
 		
 		JButton btnNo = new JButton("No");
+		btnNo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNo.setBounds(260, 83, 117, 29);
 		frame.getContentPane().add(btnNo);
 	}

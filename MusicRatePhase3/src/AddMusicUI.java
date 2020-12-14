@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 public class AddMusicUI {
 
 	public JFrame frame;
+	private DataManager dm;
+	private LoginControl control;
+	private AddMusicControl aControl;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -16,7 +19,10 @@ public class AddMusicUI {
 	/**
 	 * Create the application.
 	 */
-	public AddMusicUI() {
+	public AddMusicUI(DataManager dm, LoginControl control) {
+		this.dm = dm;
+		this.control = control;
+		this.aControl = new AddMusicControl(dm);
 		initialize();
 	}
 
@@ -40,6 +46,10 @@ public class AddMusicUI {
 		JLabel lblExternalLink = new JLabel("External Link:");
 		lblExternalLink.setBounds(80, 120, 93, 16);
 		frame.getContentPane().add(lblExternalLink);
+
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(68, 245, 312, 16);
+		frame.getContentPane().add(lblNewLabel);
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(235, 57, 130, 26);
@@ -59,6 +69,12 @@ public class AddMusicUI {
 		JButton btnAddMusic = new JButton("Add Music");
 		btnAddMusic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(control.getAdmin()!=null) {
+					aControl.handleAddMusic(textField_1.getText(), textField_2.getText(), textField_3.getText());
+					lblNewLabel.setText("Music Successfully Added to the List.");
+				}
+				else
+					lblNewLabel.setText("Admin Not Logged in.");
 			}
 		});
 		btnAddMusic.setBounds(292, 163, 117, 29);

@@ -8,7 +8,9 @@ import java.awt.event.ActionEvent;
 public class UserUI {
 
 	public JFrame frame;
-
+	private DataManager dm=new DataManager();
+	private LoginControl control= new LoginControl(dm);
+	private CreateAccountControl cControl=new CreateAccountControl(dm,control);
 
 	/**
 	 * Create the application.
@@ -36,7 +38,7 @@ public class UserUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							LoginUI window = new LoginUI();
+							LoginUI window = new LoginUI(dm,control,2);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -54,7 +56,7 @@ public class UserUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							CreateAccountUI window = new CreateAccountUI();
+							CreateAccountUI window = new CreateAccountUI(dm,cControl);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -72,7 +74,7 @@ public class UserUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							SearchMusicUI window = new SearchMusicUI();
+							SearchMusicUI window = new SearchMusicUI(dm,control);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();

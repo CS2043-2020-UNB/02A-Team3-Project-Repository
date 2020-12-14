@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 public class AdminUI {
 
 	public JFrame frame;
+	private DataManager dm=new DataManager();
+	private LoginControl control= new LoginControl(dm);
 
 	/**
 	 * Create the application.
@@ -35,7 +37,7 @@ public class AdminUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							LoginUI window = new LoginUI();
+							LoginUI window = new LoginUI(dm,control,1);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -53,7 +55,7 @@ public class AdminUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							AddMusicUI window = new AddMusicUI();
+							AddMusicUI window = new AddMusicUI(dm,control);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -71,7 +73,7 @@ public class AdminUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							SearchMusicUI window = new SearchMusicUI();
+							SearchMusicUI window = new SearchMusicUI(dm,control);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();

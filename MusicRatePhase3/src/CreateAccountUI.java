@@ -11,12 +11,17 @@ public class CreateAccountUI {
 	public JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
-
+	private DataManager dm;
+	private CreateAccountControl control;
+	private JTextField textField_2;
+	private JTextField textField_3;
 	/**
 	 * Create the application.
 	 */
-	public CreateAccountUI() {
+	public CreateAccountUI(DataManager dm,CreateAccountControl control) {
 		initialize();
+		this.dm=dm;
+		this.control=control;
 	}
 
 	/**
@@ -29,42 +34,78 @@ public class CreateAccountUI {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblUserLoginPage = new JLabel("Create Account");
-		lblUserLoginPage.setBounds(171, 36, 117, 16);
+		lblUserLoginPage.setBounds(169, 19, 117, 16);
 		frame.getContentPane().add(lblUserLoginPage);
 		
 		JLabel lblUserid = new JLabel("UserID:");
-		lblUserid.setBounds(52, 88, 61, 16);
+		lblUserid.setBounds(51, 58, 61, 16);
 		frame.getContentPane().add(lblUserid);
 		
 		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(52, 133, 71, 16);
+		lblPassword.setBounds(51, 86, 71, 16);
 		frame.getContentPane().add(lblPassword);
 		
 		textField = new JTextField();
-		textField.setBounds(125, 83, 130, 26);
+		textField.setBounds(125, 53, 130, 26);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(125, 128, 130, 26);
+		textField_1.setBounds(125, 81, 130, 26);
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
+		JLabel ac = new JLabel("");
+		ac.setBounds(53, 234, 352, 26);
+		frame.getContentPane().add(ac);
 		
 		JButton btnLogin = new JButton("Create");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String password = textField_1.getText();
+				String ID = textField.getText();
+				String name=textField_2.getText();
+				String email=textField_3.getText();
+				if(control.handleCreateAccount(ID, password,name,email, true))
+					ac.setText("Account Successfully Created");
+				else
+					ac.setText("Username Exist or You are logged In");
 			}
 		});
-		btnLogin.setBounds(260, 164, 117, 29);
+		btnLogin.setBounds(260, 193, 117, 29);
 		frame.getContentPane().add(btnLogin);
 		
 		JButton btnCreateAccount = new JButton("Create Account & Login");
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String password = textField_1.getText();
+				String ID = textField.getText();
+				String name=textField_2.getText();
+				String email=textField_3.getText();
+				if(control.handleCreateAccount(ID, password,name,email, true))
+					ac.setText("Account Successfully Created And You are logged In");
+				else
+					ac.setText("Username Exist or You are logged In");
 			}
 		});
-		btnCreateAccount.setBounds(29, 164, 181, 29);
+		btnCreateAccount.setBounds(6, 193, 181, 29);
 		frame.getContentPane().add(btnCreateAccount);
+		
+		JLabel lblName = new JLabel("Name:");
+		lblName.setBounds(51, 114, 61, 16);
+		frame.getContentPane().add(lblName);
+		
+		JLabel lblNewLabel = new JLabel("Email:");
+		lblNewLabel.setBounds(51, 147, 61, 16);
+		frame.getContentPane().add(lblNewLabel);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(125, 109, 130, 26);
+		frame.getContentPane().add(textField_2);
+		textField_2.setColumns(10);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(125, 142, 130, 26);
+		frame.getContentPane().add(textField_3);
+		textField_3.setColumns(10);
 	}
-
 }

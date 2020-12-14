@@ -7,17 +7,22 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 
 public class LoginUI {
-
+	public int mode;
 	public JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
-
-
+	private LoginControl control;
+	private DataManager dm;
+	private UserObject user;
+	private AdminObject admin;
 	/**
 	 * Create the application.
 	 */
-	public LoginUI() {
+	public LoginUI(DataManager dm, LoginControl control,int mode) {
 		initialize();
+		this.mode=mode;
+		this.control=control;
+		this.dm=dm;
 	}
 
 	/**
@@ -51,9 +56,30 @@ public class LoginUI {
 		lblAdminLoginPage.setBounds(163, 44, 83, 16);
 		frame.getContentPane().add(lblAdminLoginPage);
 		
+		JLabel ac = new JLabel("");
+		ac.setBounds(49, 234, 352, 26);
+		frame.getContentPane().add(ac);
+		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(mode==1) {
+					admin = control.handleAdminLogin(textField.getText(), textField_1.getText());
+					if(admin != null)
+						ac.setText("Admin Login Successful");
+					else {
+						ac.setText("Admin Login Failed");
+					}
+					
+				} 
+				else{
+					user = control.handleUserLogin(textField.getText(), textField_1.getText());
+					if(user != null)
+						ac.setText("User Login Successful");
+					else {
+						ac.setText("User Login Failed");
+					}
+				}
 			}
 		});
 		btnLogin.setBounds(280, 183, 117, 29);

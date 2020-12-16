@@ -2,7 +2,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.EventQueue;
@@ -25,8 +24,6 @@ public class ViewMusicUI {
 		this.dm=dm;
 		this.mObj=mObj;
 		this.vMC=new ViewMusicControl(dm);
-		this.mObj.mCmnt=this.dm.getComments(mObj.mID);
-		this.mObj.mRatings=this.dm.getMusicRating(mObj.mID);
 		initialize();
 	}
 
@@ -34,6 +31,7 @@ public class ViewMusicUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		mObj=vMC.viewMusicHandle(mObj);
 		frame = new JFrame();
 		frame.setTitle("View Music");
 		frame.setBounds(100, 100, 450, 300);
@@ -136,7 +134,7 @@ public class ViewMusicUI {
 							if(index-1 > mObj.mCmnt.size())
 								indexL.setText("Index not available");
 							else {
-								ViewCommentUI window = new ViewCommentUI(dm,mObj.mCmnt.get(index));
+								ViewCommentUI window = new ViewCommentUI(dm,lc,mObj.mCmnt.get(index));
 								window.frame.setVisible(true);
 							}
 						} catch (Exception e) {

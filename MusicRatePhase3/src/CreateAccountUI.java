@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -9,7 +10,6 @@ public class CreateAccountUI {
 
 	public JFrame frame;
 	private JTextField textField;
-	private JTextField textField_1;
 	private CreateAccountControl control;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -47,10 +47,11 @@ public class CreateAccountUI {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(125, 81, 130, 26);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		JPasswordField p = new JPasswordField();
+		p.setEchoChar('*');
+		p.setBounds(125, 81, 130, 26);
+		frame.getContentPane().add(p);
+		p.setColumns(10);
 		JLabel ac = new JLabel("");
 		ac.setBounds(53, 234, 352, 26);
 		frame.getContentPane().add(ac);
@@ -58,7 +59,7 @@ public class CreateAccountUI {
 		JButton btnLogin = new JButton("Create");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String password = textField_1.getText();
+				String password = p.getText();
 				String ID = textField.getText();
 				String name=textField_2.getText();
 				String email=textField_3.getText();
@@ -74,7 +75,7 @@ public class CreateAccountUI {
 		JButton btnCreateAccount = new JButton("Create Account & Login");
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String password = textField_1.getText();
+				String password = p.getText();
 				String ID = textField.getText();
 				String name=textField_2.getText();
 				String email=textField_3.getText();

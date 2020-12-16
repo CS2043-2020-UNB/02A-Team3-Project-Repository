@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -9,7 +10,6 @@ public class LoginUI {
 	public int mode;
 	public JFrame frame;
 	private JTextField textField;
-	private JTextField textField_1;
 	private LoginControl control;
 	private UserObject user;
 	private AdminObject admin;
@@ -44,7 +44,8 @@ public class LoginUI {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
+		JPasswordField textField_1 = new JPasswordField();
+		textField_1.setEchoChar('*');
 		textField_1.setBounds(133, 135, 142, 26);
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);

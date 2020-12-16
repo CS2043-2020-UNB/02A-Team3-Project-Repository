@@ -7,16 +7,12 @@ import java.awt.event.ActionEvent;
 public class RemoveUserAccUI {
 
 	public JFrame frame;
-	private DataManager dm;
-	private LoginControl control;
 	private RemoveUserAccountControl rUAC;
 
 	/**
 	 * Create the application.
 	 */
 	public RemoveUserAccUI(DataManager dm, LoginControl control) {
-		this.dm=dm;
-		this.control=control;
 		this.rUAC=new RemoveUserAccountControl(dm,control);
 		initialize();
 	}

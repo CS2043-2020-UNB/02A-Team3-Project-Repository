@@ -7,14 +7,12 @@ import java.awt.event.ActionEvent;
 public class RemoveMusicUI {
 
 	public JFrame frame;
-	private LoginControl lc;
 	private RemoveMusicControl rc;
 	private int mID;
 	/**
 	 * Create the application.
 	 */
 	public RemoveMusicUI(DataManager dm, LoginControl lc, int mID) {
-		this.lc = lc;
 		this.mID = mID;
 		this.rc = new RemoveMusicControl(dm, lc);
 		initialize();

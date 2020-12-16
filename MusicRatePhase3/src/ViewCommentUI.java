@@ -9,19 +9,17 @@ import java.awt.event.ActionEvent;
 public class ViewCommentUI {
 
 	public JFrame frame;
-	private MusicObject mObj;
 	private DataManager dm;
 	private ViewCommentControl vMC;
 	private CommentObject cObj;
 
-
 	/**
 	 * Create the application.
 	 */
-	public ViewCommentUI(DataManager dm,CommentObject cObj) {
+	public ViewCommentUI(DataManager dm,LoginControl lc,CommentObject cObj) {
 		this.cObj=cObj;
 		this.dm=dm;
-		this.vMC=new ViewCommentControl(dm);
+		this.vMC=new ViewCommentControl(lc);
 		initialize();
 	}
 
@@ -41,14 +39,23 @@ public class ViewCommentUI {
 		cmntL.setBounds(44, 56, 384, 159);
 		frame.getContentPane().add(cmntL);
 		
+		JLabel cL = new JLabel("");
+		cL.setBounds(44, 256, 384, 16);
+		frame.getContentPane().add(cL);
+		
 		JButton btnRemoveComment = new JButton("Remove Comment");
 		btnRemoveComment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							RemoveCommentUI window = new RemoveCommentUI(dm,cObj.cID);
-							window.frame.setVisible(true);
+							if(!vMC.handleViewComment()) {
+								cL.setText("Admin Not Logged in for remove comment");
+							}
+							else {
+								RemoveCommentUI window = new RemoveCommentUI(dm,cObj.cID);
+								window.frame.setVisible(true);
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

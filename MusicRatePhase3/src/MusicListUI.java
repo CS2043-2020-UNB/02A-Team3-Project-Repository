@@ -23,7 +23,6 @@ public class MusicListUI {
 		this.lc = lc;
 		this.mc = new MusicListControl(dm);
 		this.dm = dm;
-		this.sM = dm.getMusicList();
 		initialize();
 	}
 
@@ -31,6 +30,7 @@ public class MusicListUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		sM=mc.handleMusicList();
 		frame = new JFrame();
 		frame.setTitle("Music List");
 		frame.setBounds(100, 100, 450, 300);

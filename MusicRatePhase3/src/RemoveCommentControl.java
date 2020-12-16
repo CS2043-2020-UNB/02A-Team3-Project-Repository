@@ -1,7 +1,6 @@
 
 public class RemoveCommentControl {
 	private DataManager dm;
-	private LoginControl loginControl;
 	
 	public RemoveCommentControl(DataManager d) {
 		this.dm = d;

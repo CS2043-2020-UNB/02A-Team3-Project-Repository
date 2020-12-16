@@ -1,10 +1,12 @@
 public class ViewCommentControl {
-	private DataManager dm;
-	public ViewCommentControl(DataManager dm){
-		this.dm=dm;
+	private LoginControl lc;
+	public ViewCommentControl(LoginControl lc){
+		this.lc=lc;
 	}
 	
 	public boolean handleViewComment(){
-		return true;
+		if(lc.getAdmin()!=null)
+			return false;
+		return false;
 	}
 }

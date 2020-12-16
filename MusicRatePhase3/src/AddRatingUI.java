@@ -9,20 +9,16 @@ public class AddRatingUI {
 
 	public JFrame frame;
 	private JTextField textField;
-	private LoginControl lc;
 	private AddRatingControl ac;
 	private int mID;
 	private JLabel x;
-	private DataManager dm;
 
 
 	/**
 	 * Create the application.
 	 */
 	public AddRatingUI(DataManager dm, LoginControl lc, int mID) {
-		this.lc = lc;
 		this.mID=mID;
-		this.dm = dm;
 		this.ac=new AddRatingControl(dm,lc);
 		initialize();
 	}

@@ -57,7 +57,7 @@ public class MainUI {
 				});
 			}
 		});
-		btnAdmin.setBounds(25, 170, 117, 29);
+		btnAdmin.setBounds(24, 147, 117, 29);
 		frame.getContentPane().add(btnAdmin);
 		
 		JButton btnUser = new JButton("User");
@@ -75,7 +75,7 @@ public class MainUI {
 				});
 			}
 		});
-		btnUser.setBounds(297, 170, 117, 29);
+		btnUser.setBounds(290, 147, 117, 29);
 		frame.getContentPane().add(btnUser);
 		
 		JLabel lblYouAre = new JLabel("You are?");
@@ -85,5 +85,13 @@ public class MainUI {
 		JLabel lblWelcomeToMusic = new JLabel("Welcome to Music Rate!");
 		lblWelcomeToMusic.setBounds(144, 52, 172, 16);
 		frame.getContentPane().add(lblWelcomeToMusic);
+		
+		JLabel Txt = new JLabel("Please close the window you are using to go back");
+		Txt.setBounds(56, 179, 341, 47);
+		frame.getContentPane().add(Txt);
+		
+		JLabel lblNewLabel = new JLabel("Please close this window to exit the app");
+		lblNewLabel.setBounds(89, 238, 266, 16);
+		frame.getContentPane().add(lblNewLabel);
 	}
 }

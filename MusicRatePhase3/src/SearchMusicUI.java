@@ -12,17 +12,18 @@ public class SearchMusicUI {
 	public JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
-	private DataManager dm;
 	private LoginControl lc;
 	private SearchMusicControl sc;
+	private ArrayList<MusicObject> sM;
+	private DataManager dm;
 
 	/**
 	 * Create the application.
 	 */
-	public SearchMusicUI(DataManager dm, LoginControl lc) {
-		this.dm = dm;
+	public SearchMusicUI(DataManager dtm, LoginControl lc) {
 		this.lc = lc;
-		this.sc = new SearchMusicControl(dm);
+		this.sc = new SearchMusicControl(dtm);
+		this.dm=dtm;
 		initialize();
 	}
 
@@ -40,7 +41,7 @@ public class SearchMusicUI {
 		frame.getContentPane().add(lblEnterMusicTititle);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(49, 253, 341, 16);
+		lblNewLabel.setBounds(16, 39, 415, 176);
 		frame.getContentPane().add(lblNewLabel);
 		
 		textField = new JTextField();
@@ -48,15 +49,28 @@ public class SearchMusicUI {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
+		JLabel lblIndexNumber = new JLabel("Index Number:");
+		lblIndexNumber.setBounds(49, 220, 98, 16);
+		frame.getContentPane().add(lblIndexNumber);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(158, 215, 78, 26);
+		frame.getContentPane().add(textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel indexL = new JLabel("");
+		indexL.setBounds(92, 256, 272, 16);
+		frame.getContentPane().add(indexL);
+		
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(lc.getAdmin()!=null || lc.getUser()!=null) {
-					sc.handleSearchMusic(textField.getText());
-					lblNewLabel.setText("Search Successful");
+				sM=sc.handleSearchMusic(textField.getText());
+				String s="";
+				for (int i=0; i<sM.size(); i++) {
+					s+= (i+1) + "\t" + sM.get(i).mTitle + "\n";
 				}
-				else
-					lblNewLabel.setText("Unsuccessful Search");
+				lblNewLabel.setText(s);
 			}
 		});
 		btnSearch.setBounds(366, 1, 78, 29);
@@ -68,8 +82,18 @@ public class SearchMusicUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							ViewMusicUI window = new ViewMusicUI();
-							window.frame.setVisible(true);
+							int index;
+							try {
+								index=Integer.parseInt(textField_1.getText())-1;
+							}catch(Exception e){
+								index=0;
+							};
+							if(index-1 > sM.size())
+								indexL.setText("Index not available");
+							else {
+								ViewMusicUI window = new ViewMusicUI(lc,dm,sM.get(index));
+								window.frame.setVisible(true);
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -80,15 +104,7 @@ public class SearchMusicUI {
 		btnViewMusic.setBounds(273, 215, 117, 29);
 		frame.getContentPane().add(btnViewMusic);
 		
-		JLabel lblIndexNumber = new JLabel("Index Number:");
-		lblIndexNumber.setBounds(49, 220, 98, 16);
-		frame.getContentPane().add(lblIndexNumber);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(158, 215, 78, 26);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
 		
 	}
-
 }

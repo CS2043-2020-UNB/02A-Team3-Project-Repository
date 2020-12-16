@@ -22,41 +22,37 @@ public class DataManager {
 	}
 	public UserObject getUserAccount(String ID, String password) {
 		try {
+			U.uID=null;
 			Statement st = connection.createStatement();
 			String sqlQuery = "select * from User where Id = '" + ID + "' AND Password = sha1('"+ password+"');";
 			ResultSet rs = st.executeQuery(sqlQuery);
-			ResultSet r1 = rs;
-			if(r1.next()!= false) {
-					while(rs.next()) {
-						U.uID = rs.getString(1);
-						U.uName = rs.getString(2);
-						U.email = rs.getNString(4);
-					}
-				return U;
+			while(rs.next()) {
+				U.uID = rs.getString(1);
+				U.uName = rs.getString(2);
+				U.email = rs.getString(4);
 			}
 		} catch (SQLException e) {
 			System.err.println("SQL error: Unable to get Results" + e);
 		}
-		return null;
+		if(U.uID==null) return null;
+		return U;
 	}
 	
 	public AdminObject getAdminAccount(String ID, String password) {
 		try {
+			A.aID=null;
 			Statement st = connection.createStatement();
 			String sqlQuery = "select * from Admin where Id = '" + ID + "' AND Password = sha1('"+ password+"');";
 			ResultSet rs = st.executeQuery(sqlQuery);
-			ResultSet r1 = rs;
-			if(r1.next()!= false) {
 					while(rs.next()) {
 						A.aID = rs.getString(1);
 						A.aName = rs.getString(2);
 					}
-				return A;
-			}
 		} catch (SQLException e) {
 			System.err.println("SQL error: Unable to get Results" + e);
 		}
-		return null;
+		if(A.aID==null)return null;
+		else return A;
 	}
 	
 	public void addUser(String ID, String password,String name, String email) {
@@ -83,7 +79,7 @@ public class DataManager {
 	public void addMusic(String title, String artist, String link) {
 		try {
 			Statement st = connection.createStatement();
-			st.executeUpdate("insert into Music Values ('"+ title + "','"+artist+"','"+link+"');");
+			st.executeUpdate("insert into Music Values (NULL,'"+ title + "','"+artist+"','"+link+"');");
 		} catch (SQLException e) {
 			System.err.println("SQL error: Unable to get Results" + e);
 		}
@@ -91,7 +87,7 @@ public class DataManager {
 	public void removeMusic(int mID) {
 		try {
 			Statement st = connection.createStatement();
-			st.executeUpdate("remove from Music where MusicID =  '"+ mID +"';");
+			st.executeUpdate("delete from Music where MusicID =  "+ mID +";");
 		} catch (SQLException e) {
 			System.err.println("SQL error: Unable to get Results" + e);
 		}
@@ -99,7 +95,7 @@ public class DataManager {
 	public void addComment(int mID, String comment) {
 		try {
 			Statement st = connection.createStatement();
-			st.executeUpdate("insert into Comment Values ('"+ mID + "','"+comment+"');");
+			st.executeUpdate("insert into Comment Values (NULL,'"+ mID + "','"+comment+"');");
 		} catch (SQLException e) {
 			System.err.println("SQL error: Unable to get Results" + e);
 		}
@@ -107,7 +103,7 @@ public class DataManager {
 	public void removeComment(int mID) {
 		try {
 			Statement st = connection.createStatement();
-			st.executeUpdate("remove from Comment where mID = '"+ mID + "';");
+			st.executeUpdate("delete from Comment where CID = '"+ mID + "';");
 		} catch (SQLException e) {
 			System.err.println("SQL error: Unable to get Results" + e);
 		}
@@ -116,8 +112,28 @@ public class DataManager {
 		ArrayList<MusicObject> musicList = new ArrayList<MusicObject>();
 		try {
 			Statement st = connection.createStatement();
-			String sqlQuery = "select * from BookInfo where ";
+			String sqlQuery = "select * from Music where ";
 			sqlQuery = sqlQuery + "MusicTitle like '%" + string + "%';";
+			ResultSet rs = st.executeQuery(sqlQuery);
+			while (rs.next()) {
+				MusicObject music = new MusicObject();
+				music.mID = rs.getInt(1);
+				music.mTitle = rs.getString(2);
+				music.mArtist = rs.getString(3);
+				music.mLink = rs.getString(4);
+				musicList.add(music);
+			}
+		} catch (SQLException e) {
+			System.err.println("SQL error: getMusicObjectByName: " + e);
+		}
+		
+		return musicList;
+	}
+	public ArrayList<MusicObject> getMusicList() {
+		ArrayList<MusicObject> musicList = new ArrayList<MusicObject>();
+		try {
+			Statement st = connection.createStatement();
+			String sqlQuery = "select * from Music";
 			ResultSet rs = st.executeQuery(sqlQuery);
 			while (rs.next()) {
 				MusicObject music = new MusicObject();
@@ -156,7 +172,7 @@ public class DataManager {
 	public boolean checkRating(int mID, String uID) {
 		try {
 			Statement st = connection.createStatement();
-			String sqlQuery = "select * from User where Music_ID = '" + mID + "' AND User_ID = '"+uID+"';";
+			String sqlQuery = "select * from Rating where Music_ID = " + mID + " AND User_ID = '"+uID+"';";
 			ResultSet rs = st.executeQuery(sqlQuery);
 			while(rs.next()) {
 					return true;
@@ -170,7 +186,7 @@ public class DataManager {
 	public void addRating(int mID, String uID,int rating) {
 		try {
 			Statement st = connection.createStatement();
-			st.executeUpdate("insert into Comment Values ('"+ mID + "','"+uID+"' , "+rating+");");
+			st.executeUpdate("insert into Rating Values ("+ mID + ",'"+uID+"' , "+rating+");");
 		} catch (SQLException e) {
 			System.err.println("SQL error: Unable to get Results" + e);
 		}
@@ -179,29 +195,26 @@ public class DataManager {
 	public void removeUser(String uID) {
 		try {
 			Statement st = connection.createStatement();
-			st.executeUpdate("remove from User where Id = '"+ uID + "';");
+			st.executeUpdate("delete from User where Id = '"+ uID + "';");
 		} catch (SQLException e) {
 			System.err.println("SQL error: Unable to get Results" + e);
 		}
 	}
 	
 	public double getMusicRating(int mID) {
+		double d=0;
 		try {
 			Statement st = connection.createStatement();
 			String sqlQuery = "select AVG(Rating) from Rating  where Music_ID = " + mID + ";";
 			ResultSet rs = st.executeQuery(sqlQuery);
-			ResultSet r1 = rs;
-			if(r1.next()!= false) {
-				double d=0;
 				while(rs.next()) {
 					d=rs.getDouble(1);
 				}
-				return (((int)(d*100))*1.0)/100.0;
-			}
+				
 		} catch (SQLException e) {
 			System.err.println("SQL error: Unable to get Results" + e);
 		}
-		return 0;
+		return (((int)(d*100))*1.0)/100.0;
 	}
 	
 }

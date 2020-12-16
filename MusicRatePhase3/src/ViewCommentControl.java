@@ -1,15 +1,10 @@
-
-import java.util.ArrayList;
-
 public class ViewCommentControl {
-	private DataManager dataManager = new DataManager();
-
+	private DataManager dm;
 	public ViewCommentControl(DataManager dm){
-		this.dataManager = dm;
+		this.dm=dm;
 	}
-
-	public static ArrayList<CommentObject> handleViewComment(int commentID){
-		adminObject = LoginControl.getAdminObject();
-		return dm.getCommentObject(commentID);
+	
+	public boolean handleViewComment(){
+		return true;
 	}
 }

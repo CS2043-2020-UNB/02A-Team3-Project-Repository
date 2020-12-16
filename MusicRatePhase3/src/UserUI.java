@@ -56,7 +56,7 @@ public class UserUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							CreateAccountUI window = new CreateAccountUI(dm,cControl);
+							CreateAccountUI window = new CreateAccountUI(cControl);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -92,7 +92,7 @@ public class UserUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							MusicListUI window = new MusicListUI();
+							MusicListUI window = new MusicListUI(dm,control);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -110,7 +110,7 @@ public class UserUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							RemoveUserAccUI window = new RemoveUserAccUI();
+							RemoveUserAccUI window = new RemoveUserAccUI(dm,control);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();

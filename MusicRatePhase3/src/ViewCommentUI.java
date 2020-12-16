@@ -9,12 +9,19 @@ import java.awt.event.ActionEvent;
 public class ViewCommentUI {
 
 	public JFrame frame;
+	private MusicObject mObj;
+	private DataManager dm;
+	private ViewCommentControl vMC;
+	private CommentObject cObj;
 
 
 	/**
 	 * Create the application.
 	 */
-	public ViewCommentUI() {
+	public ViewCommentUI(DataManager dm,CommentObject cObj) {
+		this.cObj=cObj;
+		this.dm=dm;
+		this.vMC=new ViewCommentControl(dm);
 		initialize();
 	}
 
@@ -27,13 +34,12 @@ public class ViewCommentUI {
 		frame.setBounds(100, 100, 450, 300);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblUserid = new JLabel("UserID:");
-		lblUserid.setBounds(84, 32, 61, 16);
-		frame.getContentPane().add(lblUserid);
-		
 		JLabel lblComment = new JLabel("Comment:");
-		lblComment.setBounds(84, 60, 77, 16);
+		lblComment.setBounds(44, 20, 77, 16);
 		frame.getContentPane().add(lblComment);
+		JLabel cmntL = new JLabel(cObj.comment);
+		cmntL.setBounds(44, 56, 384, 159);
+		frame.getContentPane().add(cmntL);
 		
 		JButton btnRemoveComment = new JButton("Remove Comment");
 		btnRemoveComment.addActionListener(new ActionListener() {
@@ -41,7 +47,7 @@ public class ViewCommentUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							RemoveCommentUI window = new RemoveCommentUI();
+							RemoveCommentUI window = new RemoveCommentUI(dm,cObj.cID);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -50,8 +56,9 @@ public class ViewCommentUI {
 				});
 			}
 		});
-		btnRemoveComment.setBounds(245, 94, 147, 29);
+		btnRemoveComment.setBounds(281, 227, 147, 29);
 		frame.getContentPane().add(btnRemoveComment);
+		
 	}
 
 }

@@ -1,5 +1,3 @@
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -9,11 +7,16 @@ import java.awt.event.ActionEvent;
 public class RemoveMusicUI {
 
 	public JFrame frame;
-
+	private LoginControl lc;
+	private RemoveMusicControl rc;
+	private int mID;
 	/**
 	 * Create the application.
 	 */
-	public RemoveMusicUI() {
+	public RemoveMusicUI(DataManager dm, LoginControl lc, int mID) {
+		this.lc = lc;
+		this.mID = mID;
+		this.rc = new RemoveMusicControl(dm, lc);
 		initialize();
 	}
 
@@ -30,9 +33,17 @@ public class RemoveMusicUI {
 		lblAreYouSure.setBounds(105, 30, 266, 16);
 		frame.getContentPane().add(lblAreYouSure);
 		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(48, 234, 344, 16);
+		frame.getContentPane().add(lblNewLabel);
+		
 		JButton btnYes = new JButton("Yes");
 		btnYes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(rc.handleRemoveMusic(mID))
+					lblNewLabel.setText("Music Successfully Removed from the List.");
+				else
+					lblNewLabel.setText("Admin Not Logged in.");
 			}
 		});
 		btnYes.setBounds(48, 86, 117, 29);
@@ -41,10 +52,12 @@ public class RemoveMusicUI {
 		JButton btnNo = new JButton("No");
 		btnNo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblNewLabel.setText("Music not Removed.");
 			}
 		});
 		btnNo.setBounds(275, 86, 117, 29);
 		frame.getContentPane().add(btnNo);
+		
 	}
 
 }

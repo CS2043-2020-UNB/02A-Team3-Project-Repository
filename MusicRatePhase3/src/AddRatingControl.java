@@ -8,11 +8,16 @@ public class AddRatingControl {
 		this.dm = d; 
 		this.loginControl = lc;}
 	
-	public void handleAddRating(String rating) { 
+	public boolean handleAddRating(int mID,int rate) { 
 																		
-		currentUser = loginControl.getUser();  
-		String userId = currentUser.id;		 
-		
-		dm.AddRating(rating);		 
+		currentUser = loginControl.getUser();
+		if(currentUser!=null) {
+			if(!dm.checkRating(mID, currentUser.uID)) {
+				String userId = currentUser.uID;
+				dm.addRating(mID, currentUser.uID, rate);
+				return true;
+			}
+		}
+		return false;		 
 	}
 }

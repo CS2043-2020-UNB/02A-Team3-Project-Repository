@@ -1,5 +1,3 @@
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -11,12 +9,21 @@ public class AddRatingUI {
 
 	public JFrame frame;
 	private JTextField textField;
+	private LoginControl lc;
+	private AddRatingControl ac;
+	private int mID;
+	private JLabel x;
+	private DataManager dm;
 
 
 	/**
 	 * Create the application.
 	 */
-	public AddRatingUI() {
+	public AddRatingUI(DataManager dm, LoginControl lc, int mID) {
+		this.lc = lc;
+		this.mID=mID;
+		this.dm = dm;
+		this.ac=new AddRatingControl(dm,lc);
 		initialize();
 	}
 
@@ -38,13 +45,32 @@ public class AddRatingUI {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
+		x = new JLabel("");
+		x.setBounds(49, 194, 364, 16);
+		frame.getContentPane().add(x);
+		
 		JButton btnAddRating = new JButton("Add Rating");
 		btnAddRating.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int rate;
+				try {
+					rate = Integer.parseInt(textField.getText());
+					if(rate<1 || rate>5)
+						throw new Exception();
+					if(ac.handleAddRating(mID, rate)) {
+						x.setText("Rating successfully added");
+					}
+					else 
+						x.setText("User not logged in or rating has been added already.");
+				}
+				catch(Exception f) {
+					x.setText("Please enter a valid rating");
+				}
 			}
 		});
 		btnAddRating.setBounds(270, 106, 117, 29);
 		frame.getContentPane().add(btnAddRating);
+		
 	}
 
 }

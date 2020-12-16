@@ -3,7 +3,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 
 public class LoginUI {
@@ -12,7 +11,6 @@ public class LoginUI {
 	private JTextField textField;
 	private JTextField textField_1;
 	private LoginControl control;
-	private DataManager dm;
 	private UserObject user;
 	private AdminObject admin;
 	/**
@@ -22,7 +20,6 @@ public class LoginUI {
 		initialize();
 		this.mode=mode;
 		this.control=control;
-		this.dm=dm;
 	}
 
 	/**
@@ -65,8 +62,10 @@ public class LoginUI {
 			public void actionPerformed(ActionEvent e) {
 				if(mode==1) {
 					admin = control.handleAdminLogin(textField.getText(), textField_1.getText());
-					if(admin != null)
+					if(admin != null) {
 						ac.setText("Admin Login Successful");
+						System.out.println(control.getAdmin().aName);
+					}
 					else {
 						ac.setText("Admin Login Failed");
 					}

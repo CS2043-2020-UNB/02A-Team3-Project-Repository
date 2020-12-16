@@ -2,15 +2,18 @@
 public class RemoveMusicControl {
 	private DataManager dm;
 	private LoginControl loginControl;
-	private AdminObject currentAdmin = null;
 	
-	public RemoveMusicControl(DataManager d, LoginControl lc) {this.dm = d; this.loginControl = lc;}
+	public RemoveMusicControl(DataManager d, LoginControl lc) {
+		this.dm = d; 
+		this.loginControl = lc;
+	}
 	
-	public void handleRemoveMusic(String link) { 
+	public boolean handleRemoveMusic(int mID) { 
 																		
-		currentAdmin = loginControl.getAdmin();  
-		String adminId = currentAdmin.id;		 
-		
-		dm.RemoveMusic(link);		 
+		if(loginControl.getAdmin()!=null) {
+			dm.removeMusic(mID);
+			return true;
+		}		 
+		return false;	 
 	}
 }

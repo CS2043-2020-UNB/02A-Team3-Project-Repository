@@ -3,7 +3,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 
 public class CreateAccountUI {
@@ -11,16 +10,14 @@ public class CreateAccountUI {
 	public JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
-	private DataManager dm;
 	private CreateAccountControl control;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	/**
 	 * Create the application.
 	 */
-	public CreateAccountUI(DataManager dm,CreateAccountControl control) {
+	public CreateAccountUI(CreateAccountControl control) {
 		initialize();
-		this.dm=dm;
 		this.control=control;
 	}
 

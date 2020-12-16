@@ -91,7 +91,7 @@ public class AdminUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							MusicListUI window = new MusicListUI();
+							MusicListUI window = new MusicListUI(dm,control);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();

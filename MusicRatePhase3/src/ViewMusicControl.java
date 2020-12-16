@@ -1,13 +1,12 @@
-
-import java.util.ArrayList;
-
 public class ViewMusicControl {
-	private DataManager dataManager = new DataManager();
+	private DataManager dataManager;
 	
 	public ViewMusicControl(DataManager dm) { 
 		this.dataManager = dm;
 	}
-	public static ArrayList<MusicObject> viewMusicHandle(int musicID){
-		return dm.getMusicObjectByID(musicID);
+	public MusicObject viewMusicHandle(MusicObject mObj){
+		mObj.mCmnt=dataManager.getComments(mObj.mID);
+		mObj.mRatings=dataManager.getMusicRating(mObj.mID);
+		return mObj;
 	}
 }

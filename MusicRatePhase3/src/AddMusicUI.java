@@ -3,13 +3,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 
 public class AddMusicUI {
 
 	public JFrame frame;
-	private DataManager dm;
 	private LoginControl control;
 	private AddMusicControl aControl;
 	private JTextField textField_1;
@@ -20,7 +18,6 @@ public class AddMusicUI {
 	 * Create the application.
 	 */
 	public AddMusicUI(DataManager dm, LoginControl control) {
-		this.dm = dm;
 		this.control = control;
 		this.aControl = new AddMusicControl(dm);
 		initialize();

@@ -65,7 +65,6 @@ public class LoginUI {
 					admin = control.handleAdminLogin(textField.getText(), textField_1.getText());
 					if(admin != null) {
 						ac.setText("Admin Login Successful");
-						System.out.println(control.getAdmin().aName);
 					}
 					else {
 						ac.setText("Admin Login Failed");

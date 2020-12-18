@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.EventQueue;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class ViewMusicUI {
 
@@ -55,11 +57,16 @@ public class ViewMusicUI {
 		
 		String s="";
 		for (int i=0; i<mObj.mCmnt.size(); i++) {
-			s+= (i+1) + "\t" + mObj.mCmnt.get(i).comment + "\n";
+			if(mObj.mCmnt.get(i).comment.length()>40)
+				s+= (i+1) + " " + mObj.mCmnt.get(i).comment.substring(0, 39) + "...\n";
+			else
+				s+= (i+1) + " " + mObj.mCmnt.get(i).comment+ "\n";
 		}
-		JLabel lblNewLabel_1 = new JLabel(s);
-		lblNewLabel_1.setBounds(53, 182, 365, 46);
-		frame.getContentPane().add(lblNewLabel_1);
+		JTextArea textArea = new JTextArea(s);
+		textArea.setEditable(false);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(43, 167, 382, 61);
+		frame.getContentPane().add(scrollPane);
 		
 		JLabel indexL = new JLabel("");
 		indexL.setBounds(43, 256, 375, 16);
@@ -125,13 +132,16 @@ public class ViewMusicUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							int index;
+							int index=0;
 							try {
 								index=Integer.parseInt(textField.getText())-1;
 							}catch(Exception e){
-								index=0;
+								if(mObj.mCmnt!=null)
+									index=mObj.mCmnt.size()+1;
 							};
-							if(index-1 > mObj.mCmnt.size())
+							if(mObj.mCmnt==null)
+								indexL.setText("Index not available");
+							else if(index>=mObj.mCmnt.size())
 								indexL.setText("Index not available");
 							else {
 								ViewCommentUI window = new ViewCommentUI(dm,lc,mObj.mCmnt.get(index));

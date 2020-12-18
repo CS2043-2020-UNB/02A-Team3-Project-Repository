@@ -1,5 +1,7 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -14,9 +16,9 @@ public class SearchMusicUI {
 	private JTextField textField_1;
 	private LoginControl lc;
 	private SearchMusicControl sc;
-	private ArrayList<MusicObject> sM;
+	private ArrayList<MusicObject> sM=null;
 	private DataManager dm;
-
+	private String s="";
 	/**
 	 * Create the application.
 	 */
@@ -40,9 +42,11 @@ public class SearchMusicUI {
 		lblEnterMusicTititle.setBounds(6, 6, 119, 16);
 		frame.getContentPane().add(lblEnterMusicTititle);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(16, 39, 415, 176);
-		frame.getContentPane().add(lblNewLabel);
+		JTextArea textArea = new JTextArea("");
+		textArea.setEditable(false);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(6, 34, 438, 177);
+		frame.getContentPane().add(scrollPane);
 		
 		textField = new JTextField();
 		textField.setBounds(137, 1, 227, 26);
@@ -66,11 +70,12 @@ public class SearchMusicUI {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				sM=sc.handleSearchMusic(textField.getText());
-				String s="";
+				s="";
 				for (int i=0; i<sM.size(); i++) {
 					s+= (i+1) + "\t" + sM.get(i).mTitle + "\n";
 				}
-				lblNewLabel.setText(s);
+				textArea.setText(s);
+				scrollPane.getViewport ().setView ( textArea );
 			}
 		});
 		btnSearch.setBounds(366, 1, 78, 29);
@@ -82,13 +87,16 @@ public class SearchMusicUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							int index;
+							int index=0;
 							try {
 								index=Integer.parseInt(textField_1.getText())-1;
 							}catch(Exception e){
-								index=0;
+								if(sM!=null)
+									index=sM.size()+1;
 							};
-							if(index-1 > sM.size())
+							if(sM == null)
+								indexL.setText("Index not available");
+							else if(index >= sM.size())
 								indexL.setText("Index not available");
 							else {
 								ViewMusicUI window = new ViewMusicUI(lc,dm,sM.get(index));

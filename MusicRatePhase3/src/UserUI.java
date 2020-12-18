@@ -119,7 +119,7 @@ public class UserUI {
 				});
 			}
 		});
-		btnNewButton_2.setBounds(138, 207, 130, 29);
+		btnNewButton_2.setBounds(128, 207, 140, 29);
 		frame.getContentPane().add(btnNewButton_2);
 	}
 

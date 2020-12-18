@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.EventQueue;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class MusicListUI {
 
@@ -45,18 +47,18 @@ public class MusicListUI {
 		frame.getContentPane().add(lblIndex);
 		
 		JLabel lblMusicTitile = new JLabel("Music Title");
-		lblMusicTitile.setBounds(60, 6, 74, 16);
+		lblMusicTitile.setBounds(100, 6, 74, 16);
 		frame.getContentPane().add(lblMusicTitile);
 		
 		String s="";
 		for (int i=0; i<sM.size(); i++) {
 			s+= (i+1) + "\t" + sM.get(i).mTitle + "\n";
 		}
-		
-		JLabel musicLabel = new JLabel(s);
-		musicLabel.setBounds(6, 23, 438, 188);
-		frame.getContentPane().add(musicLabel);
-		
+		JTextArea textArea = new JTextArea(s);
+		textArea.setEditable(false);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(6, 34, 438, 177);
+		frame.getContentPane().add(scrollPane);
 		JLabel indexL = new JLabel("");
 		indexL.setBounds(6, 256, 438, 16);
 		frame.getContentPane().add(indexL);
@@ -76,9 +78,9 @@ public class MusicListUI {
 							try {
 								index=Integer.parseInt(textField.getText())-1;
 							}catch(Exception e){
-								index=0;
+								index=sM.size()+1;
 							};
-							if(index-1 > sM.size())
+							if(index >= sM.size())
 								indexL.setText("Index not available");
 							else {
 								ViewMusicUI window = new ViewMusicUI(lc,dm,sM.get(index));
@@ -95,5 +97,4 @@ public class MusicListUI {
 		frame.getContentPane().add(btnViewMusic);
 		
 	}
-
 }

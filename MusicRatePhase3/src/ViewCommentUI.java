@@ -2,6 +2,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -33,11 +35,13 @@ public class ViewCommentUI {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblComment = new JLabel("Comment:");
-		lblComment.setBounds(44, 20, 77, 16);
+		lblComment.setBounds(6, 16, 77, 16);
 		frame.getContentPane().add(lblComment);
-		JLabel cmntL = new JLabel(cObj.comment);
-		cmntL.setBounds(44, 56, 384, 159);
-		frame.getContentPane().add(cmntL);
+		JTextArea textArea = new JTextArea(cObj.comment);
+		textArea.setEditable(false);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(6, 34, 438, 177);
+		frame.getContentPane().add(scrollPane);
 		
 		JLabel cL = new JLabel("");
 		cL.setBounds(44, 256, 384, 16);

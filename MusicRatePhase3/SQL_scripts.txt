@@ -1,0 +1,41 @@
+ CREATE TABLE `Admin` (
+  `Id` varchar(10) NOT NULL DEFAULT '',
+  `Name` varchar(50) DEFAULT NULL,
+  `Password` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+);
+
+CREATE TABLE `User` (
+  `Id` varchar(10) NOT NULL DEFAULT '',
+  `Name` varchar(50) DEFAULT NULL,
+  `Password` varchar(200) DEFAULT NULL,
+  `Email` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+);
+
+CREATE TABLE `Music` (
+  `MusicID` int(11) NOT NULL AUTO_INCREMENT,
+  `MusicTitle` varchar(100) DEFAULT NULL,
+  `Artist` varchar(50) DEFAULT NULL,
+  `Link` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`MusicID`)
+);
+
+Comment | CREATE TABLE `Comment` (
+  `CID` int(11) NOT NULL AUTO_INCREMENT,
+  `MID` int(11) DEFAULT NULL,
+  `Cmt` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`CID`),
+  KEY `MID` (`MID`),
+  CONSTRAINT `Comment_ibfk_1` FOREIGN KEY (`MID`) REFERENCES `Music` (`MusicID`) ON DELETE CASCADE
+);
+
+CREATE TABLE `Rating` (
+  `Music_ID` int(11) DEFAULT NULL,
+  `User_ID` varchar(100) DEFAULT NULL,
+  `Rating` int(11) DEFAULT NULL,
+  KEY `Music_ID` (`Music_ID`),
+  KEY `User_ID` (`User_ID`),
+  CONSTRAINT `Rating_ibfk_1` FOREIGN KEY (`Music_ID`) REFERENCES `Music` (`MusicID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Rating_ibfk_2` FOREIGN KEY (`User_ID`) REFERENCES `User` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
+)

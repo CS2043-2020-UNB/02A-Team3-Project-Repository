@@ -53,12 +53,12 @@ public class ViewCommentUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							if(!vMC.handleViewComment()) {
-								cL.setText("Admin Not Logged in for remove comment");
-							}
-							else {
+							if(vMC.handleViewComment()) {
 								RemoveCommentUI window = new RemoveCommentUI(dm,cObj.cID);
 								window.frame.setVisible(true);
+							}
+							else {
+								cL.setText("Admin Not Logged in for remove comment");
 							}
 						} catch (Exception e) {
 							e.printStackTrace();

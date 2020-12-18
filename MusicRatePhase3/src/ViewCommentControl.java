@@ -6,7 +6,7 @@ public class ViewCommentControl {
 	
 	public boolean handleViewComment(){
 		if(lc.getAdmin()!=null)
-			return false;
+			return true;
 		return false;
 	}
 }
